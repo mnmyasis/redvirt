@@ -1,6 +1,7 @@
 # redvirt
 Инструкция инсталляции системы виртуализации redvirt
 
+# Предварительная подготовка нод
 ## Подключение локального репозитория redos
 ```
 vi /etc/yum.repos.d/local-base.repo
@@ -24,7 +25,6 @@ baseurl=http://10.7.7.249/redos/redos7.2/updates-redos/
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
-
 ```
 
 ## Отключение стандартных репозиториев
@@ -99,9 +99,6 @@ hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 
 /etc/hosts
 ```
-127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-
 172.31.40.34 vlgd-node1.vlgd.redvirt
 172.31.40.36 vlgd-node2.vlgd.redvirt
 
@@ -134,7 +131,13 @@ SELINUXTYPE=targeted
 
 ##### Список интерфейсов
 ```
-ip -br link
+ip -br link show
+```
+```
+enp59s0f0        UP             80:61:5f:13:2a:f4 <BROADCAST,MULTICAST,UP,LOWER_UP>
+enp59s0f1        DOWN           80:61:5f:13:2a:f5 <NO-CARRIER,BROADCAST,MULTICAST,UP>
+enp134s0f0       DOWN           80:61:5f:13:28:42 <NO-CARRIER,BROADCAST,MULTICAST,UP>
+enp134s0f1       UP             80:61:5f:13:28:43 <BROADCAST,MULTICAST,UP,LOWER_UP>
 ```
 
 /etc/sysconfig/network-scripts/ifcfg-enp59s0f0
@@ -190,3 +193,11 @@ cfdisk /dev/sdb
 ##### Выбрать "Запись"
 ##### Выбрать "Выход"
 
+# Установка виртуализации на node1
+##### Не забудьте перед этим подключить диск с образом в виртуальный привод
+```
+mkdir -p /mnt/cd
+mount /dev/cdrom /mnt/cd
+cd /mnt/cd
+./install.run
+```
