@@ -76,9 +76,24 @@ enabled=0
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
 ```
+##### Проверяем подключение репозиториев
+```
+yum repolist
+```
+```
+Загружены модули: fastestmirror, langpacks, vdsmupgrade
+base7.2                             RedOS - Local Base                    28 434
+updates7.2                          RedOS - Local Updates                 4 973
+repolist: 34 354
 
 ```
+
+## Обновление пакетов
+```
 yum update -y
+```
+## Установка hostname
+```
 hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 ```
 
@@ -94,6 +109,11 @@ hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 192.168.1.6 nfs1.vlgd.redvirt
 ```
 
+## Отключение SELINUX
+
+```
+setenforce 0
+```
 /etc/selinux/config
 
 ```
@@ -102,7 +122,7 @@ hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 #     enforcing - SELinux security policy is enforced.
 #     permissive - SELinux prints warnings instead of enforcing.
 #     disabled - No SELinux policy is loaded.
-`SELINUX=disabled`
+SELINUX=disabled
 # SELINUXTYPE= can take one of these three values:
 #     targeted - Targeted processes are protected,
 #     minimum - Modification of targeted policy. Only selected processes are protected.
