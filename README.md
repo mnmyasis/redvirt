@@ -191,6 +191,17 @@ cfdisk /dev/sdb
 ![v2](https://github.com/mnmyasis/redvirt/blob/master/v2.JPG)
 ##### Выбрать "Запись"
 ##### Выбрать "Выход"
+```
+systemctl disable multipathd
+```
+```
+/etc/multipath/conf.d/server.conf
+```
+```
+blacklist {
+       devnode "^sd[a-z]"
+}
+```
 
 # Установка виртуализации на node1
 ##### Не забудьте перед этим подключить диск с образом в виртуальный привод
@@ -204,3 +215,34 @@ cd /mnt/cd
 ![v8](https://github.com/mnmyasis/redvirt/blob/master/v8.JPG)
 ![v9](https://github.com/mnmyasis/redvirt/blob/master/v9.JPG)
 ![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
+
+## Подключение репозитория Epel
+```
+/etc/yum.repos.d/epel.repo
+```
+```
+[epel]
+name=epel local
+baseurl=http://10.7.7.249/epel/7/x86_64/
+enabled=0
+gpgcheck=0
+```
+## Инсталляция пакетов
+```
+yum install -y drbd drbd-pacemaker policycoreutils-python-utils pacemaker pcs psmisc
+```
+## Отключение репозитория Epel
+```
+yum-config-manager --disable epel
+```
+Инсталляция пакетов NFS
+```
+yum install -y nfs-utils nfs4-acl-tools
+```
+
+# Настройка DRBD
+
+```
+semanage permissive -a drbd_t
+modprobe 8021q
+```
