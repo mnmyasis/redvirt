@@ -380,7 +380,9 @@ firewall-cmd –reload
 ![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
 ![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
 ![v5](https://github.com/mnmyasis/redvirt/blob/master/v5.JPG)
+
 ------
+
 
 <a name="s3"></a>
 # Подключение второй ноды к кластеру
@@ -464,6 +466,21 @@ systemctl enable pacemaker
 ##### Установить пароль для пользователя hacluster
 ```
 passwd hacluster
+```
+
+## Правила firewall
+```
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.1.1" port port="7789" protocol="tcp" accept'
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.1.2" port port="7789" protocol="tcp" accept'
+firewall-cmd --permanent --add-service=high-availability
+firewall-cmd --permanent --add-service=nfs
+firewall-cmd --permanent --add-service=mountd
+firewall-cmd --permanent --add-service=rpc-bin
+firewall-cmd --zone=public --add-port=161/udp --permanent
+firewall-cmd --zone=public --add-port=161/tcp --permanent
+firewall-cmd --zone=public --add-port=162/udp --permanent
+firewall-cmd --zone=public --add-port=162/tcp --permanent
+firewall-cmd –reload
 ```
 
 ##### Подключаемая нода
