@@ -85,7 +85,6 @@ yum repolist
 base7.2                             RedOS - Local Base                    28 434
 updates7.2                          RedOS - Local Updates                 4 973
 repolist: 34 354
-
 ```
 
 ## Обновление пакетов
