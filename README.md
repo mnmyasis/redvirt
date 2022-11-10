@@ -368,7 +368,6 @@ firewall-cmd –reload
 
 В браузере перейти на страницу по адресу, который был показан вовремя инсталляции виртуализации
 ![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
-
 ![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
 ![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
 ![v5](https://github.com/mnmyasis/redvirt/blob/master/v5.JPG)
@@ -388,7 +387,7 @@ cd /mnt/cd
 ![v11](https://github.com/mnmyasis/redvirt/blob/master/v11.JPG) 
 
 ## Подключение ноды
-![v12](https://github.com/mnmyasis/redvirt/blob/master/v12.JPG) 
+![v12](https://github.com/mnmyasis/redvirt/blob/master/v12.jpg) 
 ![v13](https://github.com/mnmyasis/redvirt/blob/master/v13.JPG) 
 ![v14](https://github.com/mnmyasis/redvirt/blob/master/v14.JPG) 
 ![v15](https://github.com/mnmyasis/redvirt/blob/master/v15.JPG) 
