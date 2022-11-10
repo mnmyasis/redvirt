@@ -246,3 +246,52 @@ yum install -y nfs-utils nfs4-acl-tools
 semanage permissive -a drbd_t
 modprobe 8021q
 ```
+```
+vi /etc/drbd.d/storage.res
+```
+```
+resource storage {
+ protocol C;
+ meta-disk internal;
+ device /dev/drbd1;
+ syncer {
+  verify-alg sha1;
+ }
+ net {
+  after-sb-0pri discard-younger-primary;
+  after-sb-1pri consensus;
+}
+disk {
+  c-fill-target 10M;
+  c-max-rate   700M;
+  c-plan-ahead    7;
+  c-min-rate     4M;
+ }
+
+ on vlgd-node1.vlgd.redvirt {
+  disk   /dev/sdb1;
+  address  192.168.1.1:7789;
+ }
+ on vlgd-node2.vlgd.redvirt {
+  disk   /dev/sdb1;
+  address  192.168.1.2:7789;
+ }
+}
+```
+```
+drbdadm create-md storage
+```
+```
+drbdadm up storage
+```
+```
+drbdadm primary --force storage
+```
+```
+mkdir –p /storage/hdd
+groupadd kvm -g 36
+useradd vdsm -u 36 -g 36
+chown -R 36:36 /storage/hdd
+chmod 0755 /storage/hdd
+mkfs -t ext4 /dev/drbd1
+```
