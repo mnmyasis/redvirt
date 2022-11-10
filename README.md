@@ -295,3 +295,71 @@ chown -R 36:36 /storage/hdd
 chmod 0755 /storage/hdd
 mkfs -t ext4 /dev/drbd1
 ```
+
+## Настройка Pacemaker
+
+```
+systemctl enable pcsd
+systemctl start pcsd
+systemctl enable pacemaker
+```
+
+##### Установить пароль для пользователя hacluster
+```
+passwd hacluster
+```
+```
+pcs host auth node1.vlgd.redvirt
+pcs cluster setup VMCluster node1.vlgd.redvirt
+pcs cluster start –all
+```
+```
+pcs property set stonith-enabled=false
+pcs property set no-quorum-policy=ignore
+crm_verify –L
+pcs resource create ClusterIP1 ocf:heartbeat:IPaddr2 ip=192.168.1.6 cidr_netmask=29 op monitor interval=30s
+pcs cluster cib drbd_cfg
+pcs -f drbd_cfg resource create VMData ocf:linbit:drbd drbd_resource=storage op monitor interval=60s
+pcs -f drbd_cfg resource promotable VMData promoted-max=1 promoted-node-max=1 clone-max=2 clone-node-max=1 notify=true
+pcs cluster cib-push drbd_cfg --config
+```
+```
+echo drbd >/etc/modules-load.d/drbd.conf
+```
+```
+pcs cluster cib fs_cfg 
+pcs -f fs_cfg resource create StorageFS Filesystem device="/dev/drbd1" directory="/storage/hdd" fstype="ext4"
+pcs -f fs_cfg constraint colocation add StorageFS with VMData-clone INFINITY with-rsc-role=Master
+pcs -f fs_cfg constraint order promote VMData-clone then start StorageFS
+pcs cluster cib-push fs_cfg --config
+pcs -f fs_cfg constraint
+```
+```
+pcs resource create NfsServer ocf:heartbeat:nfsserver nfs_ip=nfs1.vlgd.redvirt nfs_shared_infodir=/nfsshare/nfsinfo op monitor interval="60"
+pcs resource create NfsStorage ocf:heartbeat:exportfs directory="/storage/hdd" options="rw,no_root_squash,anongid=36,anonuid=36" clientspec="*" fsid="1" op monitor interval="60"
+```
+```
+pcs constraint colocation add NfsServer with ClusterIP1 INFINITY
+pcs constraint colocation add ClusterIP1 with NfsStorage INFINITY
+pcs constraint colocation add ClusterIP1 with StorageFS INFINITY
+```
+```
+pcs constraint order ClusterIP1 then NfsServer 
+pcs constraint order NfsServer then NfsStorage
+pcs constraint order StorageFS then ClusterIP1
+```
+
+## Правила firewall
+```
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.1.1" port port="7789" protocol="tcp" accept'
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.1.2" port port="7789" protocol="tcp" accept'
+firewall-cmd --permanent --add-service=high-availability
+firewall-cmd --permanent --add-service=nfs
+firewall-cmd --permanent --add-service=mountd
+firewall-cmd --permanent --add-service=rpc-bin
+firewall-cmd --zone=public --add-port=161/udp --permanent
+firewall-cmd --zone=public --add-port=161/tcp --permanent
+firewall-cmd --zone=public --add-port=162/udp --permanent
+firewall-cmd --zone=public --add-port=162/tcp --permanent
+firewall-cmd –reload
+```
