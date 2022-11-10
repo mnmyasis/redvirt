@@ -493,3 +493,7 @@ pcs host auth vlgd-node2.vlgd.redvirt vlgd-node1.vlgd.redvirt
 pcs host auth vlgd-node2.vlgd.redvirt
 pcs cluster node add node2.rst.redvirt --start –enable
 ```
+------
+
+### Авторы:
+- Мясищев Максим
