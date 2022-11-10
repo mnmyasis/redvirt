@@ -28,7 +28,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
 ```
 
 ## Отключение стандартных репозиториев
-##### Устанавливается enabled=0 
+##### Устанавливается `enabled=0` 
 ```
 vi /etc/yum.repos.d/RedOS-Base.repo
 ```
@@ -203,3 +203,4 @@ cd /mnt/cd
 ![v7](https://github.com/mnmyasis/redvirt/blob/master/v7.JPG)
 ![v8](https://github.com/mnmyasis/redvirt/blob/master/v8.JPG)
 ![v9](https://github.com/mnmyasis/redvirt/blob/master/v9.JPG)
+![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
