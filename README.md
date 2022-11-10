@@ -28,7 +28,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
 ```
 
 ## Отключение стандартных репозиториев
-
+##### Устанавливается enabled=0 
 ```
 vi /etc/yum.repos.d/RedOS-Base.repo
 ```
@@ -48,7 +48,7 @@ vi /etc/yum.repos.d/RedOS-Base.repo
 [base]
 name=RedOS - Base
 baseurl=http://repo.red-soft.ru/redos/7.2/$basearch/os
-`enabled=0`
+enabled=0
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
 ```
