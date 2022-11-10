@@ -3,7 +3,7 @@
 
 ## Подключение локального репозитория redos
 ```
-vi  /etc/yum.repos.d/local-base.repo
+vi /etc/yum.repos.d/local-base.repo
 ```
 ```
 [base7.2]
