@@ -85,3 +85,12 @@ sr0          11:0    1   2,2G  0 rom  /mnt/cd
 ```
 cfdisk /dev/sdb
 ```
+##### Разметка `gpt`
+##### Выбрать пункт "Новый"
+![v1](https://github.com/mnmyasis/redvirt/blob/master/v1.JPG)
+
+##### Выбрать тип "Linux LVM"
+![v2](https://github.com/mnmyasis/redvirt/blob/master/v2.JPG)
+##### Выбрать "Запись"
+##### Выбрать "Выход"
+
