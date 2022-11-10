@@ -203,7 +203,7 @@ blacklist {
 }
 ```
 
-# Установка виртуализации на node1
+# Установка виртуализации на node1(далее мастер нода)
 ##### Не забудьте перед этим подключить диск с образом в виртуальный привод
 ```
 mkdir -p /mnt/cd
@@ -235,7 +235,7 @@ yum install -y drbd drbd-pacemaker policycoreutils-python-utils pacemaker pcs ps
 ```
 yum-config-manager --disable epel
 ```
-Инсталляция пакетов NFS
+##### Инсталляция пакетов NFS
 ```
 yum install -y nfs-utils nfs4-acl-tools
 ```
@@ -366,7 +366,7 @@ firewall-cmd –reload
 
 ## Деплой виртуализации
 
-В браузере перейти на страницу по адресу, который был показан вовремя инсталляции виртуализации
+##### В браузере перейти на страницу по адресу, который был показан вовремя инсталляции виртуализации
 ![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
 ![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
 ![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
@@ -375,7 +375,7 @@ firewall-cmd –reload
 
 # Подключение второй ноды к кластеру
 
-Выбрать подключения репозитория
+##### Выбрать подключения репозитория
 ```
 mkdir -p /mnt/cd
 mount /dev/cdrom /mnt/cd
@@ -412,7 +412,7 @@ yum install -y drbd drbd-pacemaker policycoreutils-python-utils pacemaker pcs ps
 ```
 yum-config-manager --disable epel
 ```
-Инсталляция пакетов NFS
+## Инсталляция пакетов NFS
 ```
 yum install -y nfs-utils nfs4-acl-tools
 ```
@@ -423,46 +423,16 @@ yum install -y nfs-utils nfs4-acl-tools
 semanage permissive -a drbd_t
 modprobe 8021q
 ```
+##### С мастер ноды копируем конфиг по sftp на подключаемую ноду.
 ```
-vi /etc/drbd.d/storage.res
+scp /etc/drbd.d/storage.res root@192.168.1.2:/etc/drbd.d/
 ```
-```
-resource storage {
- protocol C;
- meta-disk internal;
- device /dev/drbd1;
- syncer {
-  verify-alg sha1;
- }
- net {
-  after-sb-0pri discard-younger-primary;
-  after-sb-1pri consensus;
-}
-disk {
-  c-fill-target 10M;
-  c-max-rate   700M;
-  c-plan-ahead    7;
-  c-min-rate     4M;
- }
-
- on vlgd-node1.vlgd.redvirt {
-  disk   /dev/sdb1;
-  address  192.168.1.1:7789;
- }
- on vlgd-node2.vlgd.redvirt {
-  disk   /dev/sdb1;
-  address  192.168.1.2:7789;
- }
-}
-```
+##### Продолжаем настройки на подключаемой ноде
 ```
 drbdadm create-md storage
 ```
 ```
 drbdadm up storage
-```
-```
-drbdadm primary --force storage
 ```
 ```
 mkdir –p /storage/hdd
@@ -486,12 +456,12 @@ systemctl enable pacemaker
 passwd hacluster
 ```
 
-##### Вторая нода
+##### Подключаемая нода
 ```
 pcs host auth vlgd-node2.vlgd.redvirt vlgd-node1.vlgd.redvirt
 ```
 
-##### Первая нода
+##### Мастер нода
 ```
 pcs host auth vlgd-node2.vlgd.redvirt
 pcs cluster node add node2.rst.redvirt --start –enable
