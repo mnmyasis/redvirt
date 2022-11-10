@@ -363,3 +363,12 @@ firewall-cmd --zone=public --add-port=162/udp --permanent
 firewall-cmd --zone=public --add-port=162/tcp --permanent
 firewall-cmd –reload
 ```
+
+## Деплой виртуализации
+
+В браузере перейти на страницу по адресу, который был показан вовремя инсталляции виртуализации
+![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
+
+![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
+![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
+![v5](https://github.com/mnmyasis/redvirt/blob/master/v5.JPG)
