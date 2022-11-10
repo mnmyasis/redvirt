@@ -372,3 +372,118 @@ firewall-cmd –reload
 ![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
 ![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
 ![v5](https://github.com/mnmyasis/redvirt/blob/master/v5.JPG)
+
+
+# Подключение второй ноды к кластеру
+
+Выбрать подключения репозитория
+```
+mkdir -p /mnt/cd
+mount /dev/cdrom /mnt/cd
+cd /mnt/cd
+./install.run
+```
+
+## Подключение репозитория Epel
+```
+/etc/yum.repos.d/epel.repo
+```
+```
+[epel]
+name=epel local
+baseurl=http://10.7.7.249/epel/7/x86_64/
+enabled=0
+gpgcheck=0
+```
+## Инсталляция пакетов
+```
+yum install -y drbd drbd-pacemaker policycoreutils-python-utils pacemaker pcs psmisc
+```
+## Отключение репозитория Epel
+```
+yum-config-manager --disable epel
+```
+Инсталляция пакетов NFS
+```
+yum install -y nfs-utils nfs4-acl-tools
+```
+
+# Настройка DRBD
+
+```
+semanage permissive -a drbd_t
+modprobe 8021q
+```
+```
+vi /etc/drbd.d/storage.res
+```
+```
+resource storage {
+ protocol C;
+ meta-disk internal;
+ device /dev/drbd1;
+ syncer {
+  verify-alg sha1;
+ }
+ net {
+  after-sb-0pri discard-younger-primary;
+  after-sb-1pri consensus;
+}
+disk {
+  c-fill-target 10M;
+  c-max-rate   700M;
+  c-plan-ahead    7;
+  c-min-rate     4M;
+ }
+
+ on vlgd-node1.vlgd.redvirt {
+  disk   /dev/sdb1;
+  address  192.168.1.1:7789;
+ }
+ on vlgd-node2.vlgd.redvirt {
+  disk   /dev/sdb1;
+  address  192.168.1.2:7789;
+ }
+}
+```
+```
+drbdadm create-md storage
+```
+```
+drbdadm up storage
+```
+```
+drbdadm primary --force storage
+```
+```
+mkdir –p /storage/hdd
+groupadd kvm -g 36
+useradd vdsm -u 36 -g 36
+chown -R 36:36 /storage/hdd
+chmod 0755 /storage/hdd
+mkfs -t ext4 /dev/drbd1
+```
+
+## Настройка Pacemaker
+
+```
+systemctl enable pcsd
+systemctl start pcsd
+systemctl enable pacemaker
+```
+
+##### Установить пароль для пользователя hacluster
+```
+passwd hacluster
+```
+
+##### Вторая нода
+```
+pcs host auth vlgd-node2.vlgd.redvirt vlgd-node1.vlgd.redvirt
+```
+
+##### Первая нода
+```
+pcs host auth vlgd-node2.vlgd.redvirt
+pcs cluster node add node2.rst.redvirt --start –enable
+```
