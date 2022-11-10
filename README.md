@@ -1,6 +1,7 @@
 # redvirt
 Инструкция инсталляции системы виртуализации redvirt
 
+## Подключение локального репозитория redos
 ```
 vi  /etc/yum.repos.d/local-base.repo
 ```
@@ -26,9 +27,59 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
 
 ```
 
+## Отключение стандартных репозиториев
+
+```
+vi /etc/yum.repos.d/RedOS-Base.repo
+```
+```
+# RedOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for RedOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the
+# remarked out baseurl= line instead.
+#
+#
+
+[base]
+name=RedOS - Base
+baseurl=http://repo.red-soft.ru/redos/7.2/$basearch/os
+`enabled=0`
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
+```
+
 ```
 yum update -y
 hostnamectl set-hostname vlgd-node1.vlgd.redvirt
+```
+
+```
+vi  /etc/yum.repos.d/RedOS-Updates.repo
+```
+```
+# RedOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for RedOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the
+# remarked out baseurl= line instead.
+#
+#
+
+[updates]
+name=RedOS - Updates
+baseurl=http://repo.red-soft.ru/redos/7.2/$basearch/updates
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
 ```
 
 /etc/hosts
@@ -51,7 +102,7 @@ hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 #     enforcing - SELinux security policy is enforced.
 #     permissive - SELinux prints warnings instead of enforcing.
 #     disabled - No SELinux policy is loaded.
-SELINUX=disabled
+`SELINUX=disabled`
 # SELINUXTYPE= can take one of these three values:
 #     targeted - Targeted processes are protected,
 #     minimum - Modification of targeted policy. Only selected processes are protected.
