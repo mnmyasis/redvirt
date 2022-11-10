@@ -383,6 +383,14 @@ mount /dev/cdrom /mnt/cd
 cd /mnt/cd
 ./install.run
 ```
+![v9](https://github.com/mnmyasis/redvirt/blob/master/v9.JPG)
+![v8](https://github.com/mnmyasis/redvirt/blob/master/v8.JPG)
+![v11](https://github.com/mnmyasis/redvirt/blob/master/v11.JPG) 
+
+## Подключение нодвы
+...
+
+
 
 ## Подключение репозитория Epel
 ```
