@@ -226,7 +226,7 @@ cd /mnt/cd
 
 ## Подключение репозитория Epel
 ```
-/etc/yum.repos.d/epel.repo
+vi /etc/yum.repos.d/epel.repo
 ```
 ```
 [epel]
@@ -407,7 +407,7 @@ cd /mnt/cd
 
 ## Подключение репозитория Epel
 ```
-/etc/yum.repos.d/epel.repo
+vi /etc/yum.repos.d/epel.repo
 ```
 ```
 [epel]
