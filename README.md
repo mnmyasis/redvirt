@@ -2,6 +2,31 @@
 Инструкция инсталляции системы виртуализации redvirt
 
 ```
+vi  /etc/yum.repos.d/local-base.repo
+```
+```
+[base7.2]
+name=RedOS - Local Base
+baseurl=http://10.7.7.249/redos/redos7.2/base7.2
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
+```
+
+```
+vi /etc/yum.repos.d/local-updates.repo
+```
+```
+[updates7.2]
+name=RedOS - Local Updates
+baseurl=http://10.7.7.249/redos/redos7.2/updates-redos/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
+
+```
+
+```
 yum update -y
 hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 ```
