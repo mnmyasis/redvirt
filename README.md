@@ -54,11 +54,6 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
 ```
 
 ```
-yum update -y
-hostnamectl set-hostname vlgd-node1.vlgd.redvirt
-```
-
-```
 vi  /etc/yum.repos.d/RedOS-Updates.repo
 ```
 ```
@@ -80,6 +75,11 @@ baseurl=http://repo.red-soft.ru/redos/7.2/$basearch/updates
 enabled=0
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RED-SOFT
+```
+
+```
+yum update -y
+hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 ```
 
 /etc/hosts
