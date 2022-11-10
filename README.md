@@ -200,3 +200,6 @@ mount /dev/cdrom /mnt/cd
 cd /mnt/cd
 ./install.run
 ```
+![v7](https://github.com/mnmyasis/redvirt/blob/master/v7.JPG)
+![v8](https://github.com/mnmyasis/redvirt/blob/master/v8.JPG)
+![v9](https://github.com/mnmyasis/redvirt/blob/master/v9.JPG)
