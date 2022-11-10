@@ -387,9 +387,11 @@ cd /mnt/cd
 ![v8](https://github.com/mnmyasis/redvirt/blob/master/v8.JPG)
 ![v11](https://github.com/mnmyasis/redvirt/blob/master/v11.JPG) 
 
-## Подключение нодвы
-...
-
+## Подключение ноды
+![v12](https://github.com/mnmyasis/redvirt/blob/master/v12.JPG) 
+![v13](https://github.com/mnmyasis/redvirt/blob/master/v13.JPG) 
+![v14](https://github.com/mnmyasis/redvirt/blob/master/v14.JPG) 
+![v15](https://github.com/mnmyasis/redvirt/blob/master/v15.JPG) 
 
 
 ## Подключение репозитория Epel
