@@ -495,7 +495,7 @@ pcs cluster node add node2.rst.redvirt --start –enable
 ```
 ------
 
-##### Cкопировать приложенный пакет python2-urllib3-1.22-10.el7.noarch.rpm на hosted-engine
+##### Cкопировать пакет python2-urllib3-1.22-10.el7.noarch.rpm на hosted-engine
 Зайти на hosted-engine
 ```
 ssh admin@hosted-engine.vlgd.redvirt
