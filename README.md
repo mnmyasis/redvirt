@@ -499,20 +499,21 @@ chmod 0755 /storage/hdd
 ![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
 ![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
 ![v5](https://github.com/mnmyasis/redvirt/blob/master/v5.JPG)
+![v18](https://github.com/mnmyasis/redvirt/blob/master/v18.JPG)
+##### Перед тем как продолжить, необходимо в движке прописать хост NFS сервера.
 ```
 ssh root@hosted-engine.stvr.redvirt
 ```
 ```
 vi /etc/hosts
 ```
-##### Дописать внизу
+Дописать внизу
 ```
 192.168.1.6 nfs1.stvr.redvirt
 ```
 ```
 exit
 ```
-![v18](https://github.com/mnmyasis/redvirt/blob/master/v18.JPG)
 ------
 
 
