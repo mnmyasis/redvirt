@@ -17,7 +17,7 @@ IPADDR=192.168.1.2
 NETMASK=255.255.255.248
 GATEWAY=192.168.1.1
 ```
-
+## Задать имена нодам и перезагрузиться
 ```
 hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 ```
