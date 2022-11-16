@@ -582,10 +582,23 @@ cd /mnt/cd
 ![v11](https://github.com/mnmyasis/redvirt/blob/master/v11.JPG) 
 
 ## Подключение ноды
+##### Добавить hostname ноды в файл hosts движка
+```
+ssh root@hosted-engine.stvr.redvirt
+```
+```
+/etc/hosts
+```
+```
+10.226.11.253 stvr-node2.stvr.redvirt
+```
+
+
 ![v12](https://github.com/mnmyasis/redvirt/blob/master/v12.jpg) 
 ![v13](https://github.com/mnmyasis/redvirt/blob/master/v13.JPG) 
 ![v14](https://github.com/mnmyasis/redvirt/blob/master/v14.JPG) 
 ![v15](https://github.com/mnmyasis/redvirt/blob/master/v15.JPG) 
+![v28](https://github.com/mnmyasis/redvirt/blob/master/v28.JPG) 
 
 
 ## Подключение репозитория Epel
