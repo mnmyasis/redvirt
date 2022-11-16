@@ -260,7 +260,10 @@ gpgcheck=0
 ```
 ## Инсталляция пакетов
 ```
-yum install -y drbd drbd-pacemaker policycoreutils-python-utils pacemaker pcs psmisc
+yum install -y drbd drbd-pacemaker
+```
+```
+yum install -y policycoreutils-python-utils pacemaker pcs psmisc
 ```
 ## Отключение репозитория Epel
 ```
