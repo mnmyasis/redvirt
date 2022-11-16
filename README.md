@@ -244,7 +244,7 @@ vi /etc/yum.repos.d/epel.repo
 [epel]
 name=epel local
 baseurl=http://10.7.7.249/epel/7/x86_64/
-enabled=0
+enabled=1
 gpgcheck=0
 ```
 ## Инсталляция пакетов
@@ -615,12 +615,15 @@ vi /etc/yum.repos.d/epel.repo
 [epel]
 name=epel local
 baseurl=http://10.7.7.249/epel/7/x86_64/
-enabled=0
+enabled=1
 gpgcheck=0
 ```
 ## Инсталляция пакетов
 ```
-yum install -y drbd drbd-pacemaker policycoreutils-python-utils pacemaker pcs psmisc
+yum install -y drbd drbd-pacemaker
+```
+```
+yum install -y policycoreutils-python-utils pacemaker pcs psmisc
 ```
 ## Отключение репозитория Epel
 ```
@@ -632,6 +635,18 @@ yum install -y nfs-utils nfs4-acl-tools
 ```
 
 # Настройка DRBD
+
+```
+systemctl disable multipathd
+```
+```
+/etc/multipath/conf.d/server.conf
+```
+```
+blacklist {
+       devnode "^sd[a-z]"
+}
+```
 
 ```
 semanage permissive -a drbd_t
