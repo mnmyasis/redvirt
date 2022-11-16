@@ -9,6 +9,9 @@
 # Предварительная подготовка нод
 ## Пример конфига саб интерфейса
 ```
+/etc/sysconfig/network-scripts/ifcfg-eth1.75
+```
+```
 ONBOOT=yes
 VLAN=yes
 DEVICE=eth1.75
@@ -16,6 +19,9 @@ BOOTPROTO=static
 IPADDR=192.168.1.2
 NETMASK=255.255.255.248
 GATEWAY=192.168.1.1
+```
+```
+systemctl restart network
 ```
 ## Задать имена нодам и перезагрузиться
 ```
