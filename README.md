@@ -263,6 +263,8 @@ yum-config-manager --disable epel
 yum install -y nfs-utils nfs4-acl-tools
 ```
 
+# Настройка DRBD
+
 ```
 systemctl disable multipathd
 ```
@@ -274,8 +276,6 @@ blacklist {
        devnode "^sd[a-z]"
 }
 ```
-
-# Настройка DRBD
 
 ```
 semanage permissive -a drbd_t
