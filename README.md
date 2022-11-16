@@ -517,6 +517,16 @@ exit
 Затем можно продолжать деплой
 ## Поздравляю, вы великолепны!
 ![v19](https://github.com/mnmyasis/redvirt/blob/master/v19.JPG)
+
+Для работы с redvirt необходимо на машине, с которой вы подключаетесь прописать в hosts hostname движка.
+```
+10.226.11.254   hosted-engine.stvr.redvirt
+```
+Затем идти в веб морду
+```
+https://hosted-engine.stvr.redvirt
+```
+
 ------
 
 
