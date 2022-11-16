@@ -348,10 +348,6 @@ storage role:Primary
 
 ```
 mkdir -p /storage/hdd
-groupadd kvm -g 36
-useradd vdsm -u 36 -g 36
-chown -R 36:36 /storage/hdd
-chmod 0755 /storage/hdd
 mkfs -t ext4 /dev/drbd1
 ```
 
@@ -491,6 +487,13 @@ Daemon Status:
 
 ## Деплой виртуализации
 
+```
+groupadd kvm -g 36
+useradd vdsm -u 36 -g 36
+chown -R 36:36 /storage/hdd
+chmod 0755 /storage/hdd
+```
+
 ##### В браузере перейти на страницу по адресу, который был показан вовремя инсталляции виртуализации
 ![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
 ![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
@@ -509,6 +512,7 @@ vi /etc/hosts
 ```
 exit
 ```
+![v18](https://github.com/mnmyasis/redvirt/blob/master/v18.JPG)
 ------
 
 
