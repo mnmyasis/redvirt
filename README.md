@@ -496,7 +496,19 @@ Daemon Status:
 ![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
 ![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
 ![v5](https://github.com/mnmyasis/redvirt/blob/master/v5.JPG)
-
+```
+ssh root@hosted-engine.stvr.redvirt
+```
+```
+vi /etc/hosts
+```
+##### Дописать внизу
+```
+192.168.1.6 nfs1.stvr.redvirt
+```
+```
+exit
+```
 ------
 
 
