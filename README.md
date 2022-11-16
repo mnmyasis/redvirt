@@ -219,17 +219,6 @@ cfdisk /dev/sdb
 ![v2](https://github.com/mnmyasis/redvirt/blob/master/v2.JPG)
 ##### Выбрать "Запись"
 ##### Выбрать "Выход"
-```
-systemctl disable multipathd
-```
-```
-/etc/multipath/conf.d/server.conf
-```
-```
-blacklist {
-       devnode "^sd[a-z]"
-}
-```
 ------
 
 
@@ -272,6 +261,18 @@ yum-config-manager --disable epel
 ##### Инсталляция пакетов NFS
 ```
 yum install -y nfs-utils nfs4-acl-tools
+```
+
+```
+systemctl disable multipathd
+```
+```
+/etc/multipath/conf.d/server.conf
+```
+```
+blacklist {
+       devnode "^sd[a-z]"
+}
 ```
 
 # Настройка DRBD
