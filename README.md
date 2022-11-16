@@ -518,6 +518,8 @@ exit
 ## Поздравляю, вы великолепны!
 ![v19](https://github.com/mnmyasis/redvirt/blob/master/v19.JPG)
 
+# Настройки рабочего места
+
 Для работы с redvirt необходимо на машине, с которой вы подключаетесь прописать в hosts hostname движка.
 ```
 10.226.11.254   hosted-engine.stvr.redvirt
@@ -526,6 +528,33 @@ exit
 ```
 https://hosted-engine.stvr.redvirt
 ```
+
+# Подключение сертификата на примере Firefox
+1. Скачать сертифкат
+
+
+![v20](https://github.com/mnmyasis/redvirt/blob/master/v20.JPG)
+
+
+2. Зайти в настройки
+
+
+![v21](https://github.com/mnmyasis/redvirt/blob/master/v21.jpg)
+
+
+3. Найти просмотр сертификатов
+
+
+![v22](https://github.com/mnmyasis/redvirt/blob/master/v22.JPG)
+
+
+4. Импортировать
+
+
+![v23](https://github.com/mnmyasis/redvirt/blob/master/v23.JPG)
+![v24](https://github.com/mnmyasis/redvirt/blob/master/v24.JPG)
+![v25](https://github.com/mnmyasis/redvirt/blob/master/v25.JPG)
+
 
 ------
 
