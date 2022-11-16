@@ -316,14 +316,38 @@ disk {
 ```
 drbdadm create-md storage
 ```
+##### Вывод:
+```
+initializing activity log
+initializing bitmap (268272 KB) to all zero
+Writing meta data...
+New drbd meta data block successfully created.
+```
+
 ```
 drbdadm up storage
 ```
+##### Вывод:
+```
+  --==  Thank you for participating in the global usage survey  ==--
+The server's response is:
+```
+
 ```
 drbdadm primary --force storage
 ```
 ```
-mkdir –p /storage/hdd
+drbdadm status storage
+```
+Вывод:
+```
+storage role:Primary
+  disk:UpToDate
+  peer connection:Connecting
+```
+
+```
+mkdir -p /storage/hdd
 groupadd kvm -g 36
 useradd vdsm -u 36 -g 36
 chown -R 36:36 /storage/hdd
@@ -345,14 +369,23 @@ passwd hacluster
 ```
 ```
 pcs host auth node1.vlgd.redvirt
+```
+```
 pcs cluster setup VMCluster node1.vlgd.redvirt
+```
+```
 pcs cluster start –all
 ```
 ```
+
 pcs property set stonith-enabled=false
 pcs property set no-quorum-policy=ignore
 crm_verify –L
+```
+```
 pcs resource create ClusterIP1 ocf:heartbeat:IPaddr2 ip=192.168.1.6 cidr_netmask=29 op monitor interval=30s
+```
+```
 pcs cluster cib drbd_cfg
 pcs -f drbd_cfg resource create VMData ocf:linbit:drbd drbd_resource=storage op monitor interval=60s
 pcs -f drbd_cfg resource promotable VMData promoted-max=1 promoted-node-max=1 clone-max=2 clone-node-max=1 notify=true
@@ -371,6 +404,8 @@ pcs -f fs_cfg constraint
 ```
 ```
 pcs resource create NfsServer ocf:heartbeat:nfsserver nfs_ip=nfs1.vlgd.redvirt nfs_shared_infodir=/nfsshare/nfsinfo op monitor interval="60"
+```
+```
 pcs resource create NfsStorage ocf:heartbeat:exportfs directory="/storage/hdd" options="rw,no_root_squash,anongid=36,anonuid=36" clientspec="*" fsid="1" op monitor interval="60"
 ```
 ```
