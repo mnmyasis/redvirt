@@ -514,6 +514,9 @@ vi /etc/hosts
 ```
 exit
 ```
+Затем можно продолжать деплой
+## Поздравляю, вы великолепны!
+![v19](https://github.com/mnmyasis/redvirt/blob/master/v19.JPG)
 ------
 
 
