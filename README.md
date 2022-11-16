@@ -555,6 +555,14 @@ https://hosted-engine.stvr.redvirt
 ![v24](https://github.com/mnmyasis/redvirt/blob/master/v24.JPG)
 ![v25](https://github.com/mnmyasis/redvirt/blob/master/v25.JPG)
 
+## Удаление исключения
+
+
+![v26](https://github.com/mnmyasis/redvirt/blob/master/v26.jpg)
+
+
+![v27](https://github.com/mnmyasis/redvirt/blob/master/v27.jpg)
+
 
 ------
 
