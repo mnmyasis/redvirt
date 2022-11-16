@@ -657,19 +657,73 @@ modprobe 8021q
 scp /etc/drbd.d/storage.res root@192.168.1.2:/etc/drbd.d/
 ```
 ##### Продолжаем настройки на подключаемой ноде
+
+
+##### Если раздел sdb имеет такой вид
+```
+[root@stvr-node2 cd]# lsblk
+NAME                                   MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda                                      8:0    0 447,1G  0 disk
+├─sda1                                   8:1    0   200M  0 part  /boot/efi
+├─sda2                                   8:2    0     1G  0 part  /boot
+└─sda3                                   8:3    0 445,9G  0 part
+  ├─ro-root                            254:0    0    50G  0 lvm   /
+  ├─ro-swap                            254:1    0     4G  0 lvm   [SWAP]
+  └─ro-home                            254:2    0 391,9G  0 lvm   /home
+sdb                                      8:16   0   8,2T  0 disk
+└─3600508b1001cc2082a098e84b3c833dc    254:3    0   8,2T  0 mpath
+  └─3600508b1001cc2082a098e84b3c833dc1 254:4    0   8,2T  0 part
+sr0                                     11:0    1   2,2G  0 rom   /mnt/cd
+```
+##### Удаляем их командой
+```
+dmsetup remove -f 3600508b1001cc2082a098e84b3c833dc1
+```
+```
+reboot now
+```
+
+
 ```
 drbdadm create-md storage
 ```
 ```
 drbdadm up storage
 ```
+
+Теперь диски начали синхронизироваться
 ```
-mkdir –p /storage/hdd
+drbdadm status storage
+```
+Вывод:
+```
+storage role:Secondary
+  disk:Inconsistent
+  peer role:Primary
+    replication:SyncTarget peer-disk:UpToDate done:0.00
+```
+
+
+```
+cat /proc/drbd
+```
+```
+version: 8.4.10 (api:1/proto:86-101)
+srcversion: 473968AD625BA317874A57E
+
+ 1: cs:SyncTarget ro:Secondary/Primary ds:Inconsistent/UpToDate C r-----
+    ns:0 nr:118452 dw:118452 dr:0 al:8 bm:0 lo:0 pe:0 ua:0 ap:0 ep:1 wo:f oos:8790268204
+        [>....................] sync'ed:  0.1% (8584244/8584360)M
+        finish: 61:39:36 speed: 39,468 (39,468) want: 56,000 K/sec
+```
+
+
+```
+mkdir -p /storage/hdd
 groupadd kvm -g 36
 useradd vdsm -u 36 -g 36
 chown -R 36:36 /storage/hdd
 chmod 0755 /storage/hdd
-mkfs -t ext4 /dev/drbd1
 ```
 
 ## Настройка Pacemaker
@@ -697,28 +751,89 @@ firewall-cmd --zone=public --add-port=161/udp --permanent
 firewall-cmd --zone=public --add-port=161/tcp --permanent
 firewall-cmd --zone=public --add-port=162/udp --permanent
 firewall-cmd --zone=public --add-port=162/tcp --permanent
-firewall-cmd –reload
+firewall-cmd --reload
 ```
 
 ##### Подключаемая нода
 ```
 pcs host auth vlgd-node2.vlgd.redvirt vlgd-node1.vlgd.redvirt
 ```
+Вывод:
+```
+Username: hacluster
+Password:
+stvr-node2.stvr.redvirt: Authorized
+stvr-node1.stvr.redvirt: Authorized
+```
 
 ##### Мастер нода
 ```
 pcs host auth vlgd-node2.vlgd.redvirt
-pcs cluster node add node2.rst.redvirt --start –enable
 ```
+```
+pcs cluster node add stvr-node2.stvr.redvirt --start --enable
+```
+Вывод:
+```
+Disabling SBD service...
+stvr-node2.stvr.redvirt: sbd disabled
+Sending 'corosync authkey', 'pacemaker authkey' to 'stvr-node2.stvr.redvirt'
+stvr-node2.stvr.redvirt: successful distribution of the file 'corosync authkey'
+stvr-node2.stvr.redvirt: successful distribution of the file 'pacemaker authkey'
+Sending updated corosync.conf to nodes...
+stvr-node1.stvr.redvirt: Succeeded
+stvr-node2.stvr.redvirt: Succeeded
+stvr-node1.stvr.redvirt: Corosync configuration reloaded
+Enabling cluster on hosts: 'stvr-node2.stvr.redvirt'...
+stvr-node2.stvr.redvirt: Cluster enabled
+Starting cluster on hosts: 'stvr-node2.stvr.redvirt'...
+```
+```
+pcs status
+```
+Вывод:
+```
+Cluster name: VMCluster
+Cluster Summary:
+  * Stack: corosync
+  * Current DC: stvr-node1.stvr.redvirt (version 2.0.4-4.1.el7-2deceaa3ae) - partition with quorum
+  * Last updated: Thu Nov 17 00:15:03 2022
+  * Last change:  Thu Nov 17 00:14:03 2022 by hacluster via crmd on stvr-node1.stvr.redvirt
+  * 2 nodes configured
+  * 6 resource instances configured
+
+Node List:
+  * Online: [ stvr-node1.stvr.redvirt stvr-node2.stvr.redvirt ]
+
+Full List of Resources:
+  * ClusterIP1  (ocf::heartbeat:IPaddr2):        Started stvr-node1.stvr.redvirt
+  * Clone Set: VMData-clone [VMData] (promotable):
+    * Masters: [ stvr-node1.stvr.redvirt ]
+    * Slaves: [ stvr-node2.stvr.redvirt ]
+  * StorageFS   (ocf::heartbeat:Filesystem):     Started stvr-node1.stvr.redvirt
+  * NfsServer   (ocf::heartbeat:nfsserver):      Started stvr-node1.stvr.redvirt
+  * NfsStorage  (ocf::heartbeat:exportfs):       Started stvr-node1.stvr.redvirt
+
+Daemon Status:
+  corosync: active/disabled
+  pacemaker: active/disabled
+  pcsd: active/enabled
+```
+##### Должна появиться новая нода.
 ------
 
-##### Cкопировать пакет python2-urllib3-1.22-10.el7.noarch.rpm на hosted-engine
+##### Cкопировать пакет python2-urllib3-1.22-10.el7.noarch.rpm на hosted-engine например с помощью winscp или scp
+Скачать пакет можно из http://repo.red-soft.ru/redos/7.2/aarch64/os/
+
+
 Зайти на hosted-engine
 ```
 ssh admin@hosted-engine.vlgd.redvirt
 ```
 ```
-yum downgrade python2-urllib3-1.22-10.el7.noarch.rpm
+yum downgrade -y python2-urllib3-1.22-10.el7.noarch.rpm
+```
+```
 systemctl restart ovirt-imageio-proxy
 systemctl status ovirt-imageio-proxy
 ```
