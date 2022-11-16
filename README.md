@@ -601,6 +601,12 @@ ssh root@hosted-engine.stvr.redvirt
 ![v28](https://github.com/mnmyasis/redvirt/blob/master/v28.JPG) 
 
 
+##### Как только нода проинсталлится можно продолжать
+
+
+![v29](https://github.com/mnmyasis/redvirt/blob/master/v29.JPG) 
+
+
 ## Подключение репозитория Epel
 ```
 vi /etc/yum.repos.d/epel.repo
