@@ -22,7 +22,7 @@ GATEWAY=192.168.1.1
 hostnamectl set-hostname vlgd-node1.vlgd.redvirt
 ```
 ```
-reboot
+reboot now
 ```
 
 ## Подключение локального репозитория redos
