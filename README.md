@@ -7,6 +7,24 @@
  
 <a name="s1"></a>
 # Предварительная подготовка нод
+## Пример конфига саб интерфейса
+```
+ONBOOT=yes
+VLAN=yes
+DEVICE=eth1.75
+BOOTPROTO=static
+IPADDR=192.168.1.2
+NETMASK=255.255.255.248
+GATEWAY=192.168.1.1
+```
+
+```
+hostnamectl set-hostname vlgd-node1.vlgd.redvirt
+```
+```
+reboot
+```
+
 ## Подключение локального репозитория redos
 ```
 vi /etc/yum.repos.d/local-base.repo
@@ -96,11 +114,7 @@ repolist: 34 354
 ```
 yum update -y
 ```
-## Установка hostname
-```
-hostnamectl set-hostname vlgd-node1.vlgd.redvirt
-```
-
+## Хосты
 /etc/hosts
 ```
 172.31.40.34 vlgd-node1.vlgd.redvirt
