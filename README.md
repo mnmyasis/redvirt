@@ -370,17 +370,41 @@ passwd hacluster
 ```
 pcs host auth node1.vlgd.redvirt
 ```
+##### Вывод:
+```
+Username: hacluster
+Password:
+stvr-node1.stvr.redvirt: Authorized
+```
 ```
 pcs cluster setup VMCluster node1.vlgd.redvirt
 ```
+##### Вывод:
 ```
-pcs cluster start –all
+No addresses specified for host 'stvr-node1.stvr.redvirt', using 'stvr-node1.stvr.redvirt'
+Destroying cluster on hosts: 'stvr-node1.stvr.redvirt'...
+stvr-node1.stvr.redvirt: Successfully destroyed cluster
+Requesting remove 'pcsd settings' from 'stvr-node1.stvr.redvirt'
+stvr-node1.stvr.redvirt: successful removal of the file 'pcsd settings'
+Sending 'corosync authkey', 'pacemaker authkey' to 'stvr-node1.stvr.redvirt'
+stvr-node1.stvr.redvirt: successful distribution of the file 'corosync authkey'
+stvr-node1.stvr.redvirt: successful distribution of the file 'pacemaker authkey'
+Sending 'corosync.conf' to 'stvr-node1.stvr.redvirt'
+stvr-node1.stvr.redvirt: successful distribution of the file 'corosync.conf'
+Cluster has been successfully set up.
+```
+```
+pcs cluster start --all
+```
+##### Вывод:
+```
+stvr-node1.stvr.redvirt: Starting Cluster...
 ```
 ```
 
 pcs property set stonith-enabled=false
 pcs property set no-quorum-policy=ignore
-crm_verify –L
+crm_verify -L
 ```
 ```
 pcs resource create ClusterIP1 ocf:heartbeat:IPaddr2 ip=192.168.1.6 cidr_netmask=29 op monitor interval=30s
@@ -431,9 +455,39 @@ firewall-cmd --zone=public --add-port=161/udp --permanent
 firewall-cmd --zone=public --add-port=161/tcp --permanent
 firewall-cmd --zone=public --add-port=162/udp --permanent
 firewall-cmd --zone=public --add-port=162/tcp --permanent
-firewall-cmd –reload
+firewall-cmd --reload
 ```
 
+```
+pcs status
+```
+##### Вывод:
+```
+Cluster name: VMCluster
+Cluster Summary:
+  * Stack: corosync
+  * Current DC: stvr-node1.stvr.redvirt (version 2.0.4-4.1.el7-2deceaa3ae) - partition with quorum
+  * Last updated: Wed Nov 16 18:10:20 2022
+  * Last change:  Wed Nov 16 18:09:11 2022 by root via cibadmin on stvr-node1.stvr.redvirt
+  * 1 node configured
+  * 6 resource instances configured
+
+Node List:
+  * Online: [ stvr-node1.stvr.redvirt ]
+
+Full List of Resources:
+  * ClusterIP1  (ocf::heartbeat:IPaddr2):        Started stvr-node1.stvr.redvirt
+  * Clone Set: VMData-clone [VMData] (promotable):
+    * Masters: [ stvr-node1.stvr.redvirt ]
+  * StorageFS   (ocf::heartbeat:Filesystem):     Started stvr-node1.stvr.redvirt
+  * NfsServer   (ocf::heartbeat:nfsserver):      Started stvr-node1.stvr.redvirt
+  * NfsStorage  (ocf::heartbeat:exportfs):       Started stvr-node1.stvr.redvirt
+
+Daemon Status:
+  corosync: active/disabled
+  pacemaker: active/disabled
+  pcsd: active/enabled
+```
 
 ## Деплой виртуализации
 
