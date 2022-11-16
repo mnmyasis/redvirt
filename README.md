@@ -7,7 +7,20 @@
  
 <a name="s1"></a>
 # Предварительная подготовка нод
-## Пример конфига саб интерфейса
+## Настройка сети
+
+##### Список интерфейсов
+```
+ip -br link show
+```
+```
+enp59s0f0        UP             80:61:5f:13:2a:f4 <BROADCAST,MULTICAST,UP,LOWER_UP>
+enp59s0f1        DOWN           80:61:5f:13:2a:f5 <NO-CARRIER,BROADCAST,MULTICAST,UP>
+enp134s0f0       DOWN           80:61:5f:13:28:42 <NO-CARRIER,BROADCAST,MULTICAST,UP>
+enp134s0f1       UP             80:61:5f:13:28:43 <BROADCAST,MULTICAST,UP,LOWER_UP>
+```
+
+### Пример конфига саб интерфейса
 ```
 /etc/sysconfig/network-scripts/ifcfg-eth1.75
 ```
@@ -19,6 +32,30 @@ BOOTPROTO=static
 IPADDR=192.168.1.2
 NETMASK=255.255.255.248
 GATEWAY=192.168.1.1
+```
+### Создание сетевого интерфейса для перемычки между серварми
+
+```
+/etc/sysconfig/network-scripts/ifcfg-enp59s0f0
+```
+```
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=static
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=enp59s0f0
+UUID=71049054-8059-4c4e-b363-3fa327abe79e
+DEVICE=enp59s0f0
+ONBOOT=yes
+IPADDR=192.168.1.1
+NETMASK=255.255.255.248
 ```
 ```
 systemctl restart network
@@ -149,40 +186,6 @@ SELINUX=disabled
 #     minimum - Modification of targeted policy. Only selected processes are protected.
 #     mls - Multi Level Security protection.
 SELINUXTYPE=targeted
-```
-
-### Создание сетевого интерфейса для перемычки между серварми
-
-##### Список интерфейсов
-```
-ip -br link show
-```
-```
-enp59s0f0        UP             80:61:5f:13:2a:f4 <BROADCAST,MULTICAST,UP,LOWER_UP>
-enp59s0f1        DOWN           80:61:5f:13:2a:f5 <NO-CARRIER,BROADCAST,MULTICAST,UP>
-enp134s0f0       DOWN           80:61:5f:13:28:42 <NO-CARRIER,BROADCAST,MULTICAST,UP>
-enp134s0f1       UP             80:61:5f:13:28:43 <BROADCAST,MULTICAST,UP,LOWER_UP>
-```
-
-/etc/sysconfig/network-scripts/ifcfg-enp59s0f0
-```
-TYPE=Ethernet
-PROXY_METHOD=none
-BROWSER_ONLY=no
-BOOTPROTO=static
-DEFROUTE=yes
-IPV4_FAILURE_FATAL=no
-IPV6INIT=yes
-IPV6_AUTOCONF=yes
-IPV6_DEFROUTE=yes
-IPV6_FAILURE_FATAL=no
-IPV6_ADDR_GEN_MODE=stable-privacy
-NAME=enp59s0f0
-UUID=71049054-8059-4c4e-b363-3fa327abe79e
-DEVICE=enp59s0f0
-ONBOOT=yes
-IPADDR=192.168.1.1
-NETMASK=255.255.255.248
 ```
 
 ##### Подготовка жесткого диска
