@@ -842,5 +842,12 @@ systemctl restart ovirt-imageio-proxy
 systemctl status ovirt-imageio-proxy
 ```
 
+### Технлогии:
+- РЕД ОС 7.2 Ядро Linux 4.19.79 (в репозитории 5.15.35)
+- Red Виртуализация 7.2.0
+- DRBD
+- Pacemaker
+- NFS
+
 ### Авторы:
 - Мясищев Максим
