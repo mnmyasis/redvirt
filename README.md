@@ -827,7 +827,7 @@ Daemon Status:
 ------
 
 ##### Cкопировать пакет python2-urllib3-1.22-10.el7.noarch.rpm на hosted-engine например с помощью winscp или scp
-Скачать пакет можно из [http://repo.red-soft.ru/redos/7.2/aarch64/os/](http://repo.red-soft.ru/redos/7.2/x86_64/os/)
+Скачать пакет можно из [http://repo.red-soft.ru/redos/7.2/x86_64/os/](http://repo.red-soft.ru/redos/7.2/x86_64/os/)
 
 
 Зайти на hosted-engine
