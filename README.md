@@ -5,6 +5,7 @@
 - [Установка виртуализации на мастер ноду](#s2)
 - [Подключение второй ноды к кластеру](#s3)
 - [Настройка рабочего метса](#s4)
+- [IPMI](manuals/ipmi.md)
 
 
 <a name="s1"></a>
@@ -215,10 +216,10 @@ cfdisk /dev/sdb
 ```
 ##### Разметка `gpt`
 ##### Выбрать пункт "Новый"
-![v1](https://github.com/mnmyasis/redvirt/blob/master/v1.JPG)
+![v1](image/v1.JPG)
 
 ##### Выбрать тип "Linux LVM"
-![v2](https://github.com/mnmyasis/redvirt/blob/master/v2.JPG)
+![v2](image/v2.JPG)
 ##### Выбрать "Запись"
 ##### Выбрать "Выход"
 ------
@@ -233,10 +234,10 @@ mount /dev/cdrom /mnt/cd
 cd /mnt/cd
 ./install.run
 ```
-![v7](https://github.com/mnmyasis/redvirt/blob/master/v7.JPG)
-![v8](https://github.com/mnmyasis/redvirt/blob/master/v8.JPG)
-![v9](https://github.com/mnmyasis/redvirt/blob/master/v9.JPG)
-![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
+![v7](image/v7.JPG)
+![v8](image/v8.JPG)
+![v9](image/v9.JPG)
+![v10](image/v10.JPG)
 
 ## Подключение репозитория Epel
 ```
@@ -497,11 +498,11 @@ chmod 0755 /storage/hdd
 ```
 
 ##### В браузере перейти на страницу по адресу, который был показан вовремя инсталляции виртуализации
-![v10](https://github.com/mnmyasis/redvirt/blob/master/v10.JPG)
-![v3](https://github.com/mnmyasis/redvirt/blob/master/v3.JPG)
-![v4](https://github.com/mnmyasis/redvirt/blob/master/v4.JPG)
-![v5](https://github.com/mnmyasis/redvirt/blob/master/v5.JPG)
-![v18](https://github.com/mnmyasis/redvirt/blob/master/v18.JPG)
+![v10](image/v10.JPG)
+![v3](image/v3.JPG)
+![v4](image/v4.JPG)
+![v5](image/v5.JPG)
+![v18](image/v18.JPG)
 ##### Перед тем как продолжить, необходимо в движке прописать хост NFS сервера.
 ```
 ssh root@hosted-engine.stvr.redvirt
@@ -518,7 +519,7 @@ exit
 ```
 Затем можно продолжать деплой
 ## Поздравляю, вы великолепны!
-![v19](https://github.com/mnmyasis/redvirt/blob/master/v19.JPG)
+![v19](image/v19.JPG)
 
 
 <a name="s4"></a>
@@ -537,35 +538,35 @@ https://hosted-engine.stvr.redvirt
 1. Скачать сертифкат
 
 
-![v20](https://github.com/mnmyasis/redvirt/blob/master/v20.JPG)
+![v20](image/v20.JPG)
 
 
 2. Зайти в настройки
 
 
-![v21](https://github.com/mnmyasis/redvirt/blob/master/v21.jpg)
+![v21](image/v21.jpg)
 
 
 3. Найти просмотр сертификатов
 
 
-![v22](https://github.com/mnmyasis/redvirt/blob/master/v22.JPG)
+![v22](image/v22.JPG)
 
 
 4. Импортировать
 
 
-![v23](https://github.com/mnmyasis/redvirt/blob/master/v23.JPG)
-![v24](https://github.com/mnmyasis/redvirt/blob/master/v24.JPG)
-![v25](https://github.com/mnmyasis/redvirt/blob/master/v25.JPG)
+![v23](image/v23.JPG)
+![v24](image/v24.JPG)
+![v25](image/v25.JPG)
 
 ## Удаление исключения
 
 
-![v26](https://github.com/mnmyasis/redvirt/blob/master/v26.jpg)
+![v26](image/v26.jpg)
 
 
-![v27](https://github.com/mnmyasis/redvirt/blob/master/v27.jpg)
+![v27](image/v27.jpg)
 
 
 ------
@@ -581,9 +582,9 @@ mount /dev/cdrom /mnt/cd
 cd /mnt/cd
 ./install.run
 ```
-![v9](https://github.com/mnmyasis/redvirt/blob/master/v9.JPG)
-![v8](https://github.com/mnmyasis/redvirt/blob/master/v8.JPG)
-![v11](https://github.com/mnmyasis/redvirt/blob/master/v11.JPG) 
+![v9](image/v9.JPG)
+![v8](image/v8.JPG)
+![v11](image/v11.JPG) 
 
 ## Подключение ноды
 ##### Добавить hostname ноды в файл hosts движка
@@ -598,17 +599,17 @@ ssh root@hosted-engine.stvr.redvirt
 ```
 
 
-![v12](https://github.com/mnmyasis/redvirt/blob/master/v12.jpg) 
-![v13](https://github.com/mnmyasis/redvirt/blob/master/v13.JPG) 
-![v14](https://github.com/mnmyasis/redvirt/blob/master/v14.JPG) 
-![v15](https://github.com/mnmyasis/redvirt/blob/master/v15.JPG) 
-![v28](https://github.com/mnmyasis/redvirt/blob/master/v28.JPG) 
+![v12](image/v12.jpg) 
+![v13](image/v13.JPG) 
+![v14](image/v14.JPG) 
+![v15](image/v15.JPG) 
+![v28](image/v28.JPG) 
 
 
 ##### Как только нода проинсталлится можно продолжать
 
 
-![v29](https://github.com/mnmyasis/redvirt/blob/master/v29.JPG) 
+![v29](image/v29.JPG) 
 
 
 ## Подключение репозитория Epel
@@ -823,10 +824,12 @@ Daemon Status:
   pacemaker: active/disabled
   pcsd: active/enabled
 ```
-##### Должна появиться новая нода.
+###### Должна появиться новая нода.
+
+
 ------
 
-##### Cкопировать пакет python2-urllib3-1.22-10.el7.noarch.rpm на hosted-engine например с помощью winscp или scp
+###### Cкопировать пакет python2-urllib3-1.22-10.el7.noarch.rpm на hosted-engine например с помощью winscp или scp
 Скачать пакет можно из [http://repo.red-soft.ru/redos/7.2/x86_64/os/](http://repo.red-soft.ru/redos/7.2/x86_64/os/)
 
 
