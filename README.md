@@ -6,6 +6,7 @@
 - [Подключение второй ноды к кластеру](#s3)
 - [Настройка рабочего метса](#s4)
 - [IPMI](manuals/ipmi.md)
+- [Создание RAID для INSPUR сервера](manuals/raid.md)
 - [Установка Red OS 7.2](manuals/install_os.md)
 
 <a name="s1"></a>
