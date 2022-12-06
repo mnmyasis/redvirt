@@ -577,7 +577,6 @@ https://hosted-engine.stvr.redvirt
 # Подключение второй ноды к кластеру
 
 ##### Выбрать подключения репозитория
-
 ```
 mkdir -p /mnt/cd
 mount /dev/cdrom /mnt/cd
@@ -587,6 +586,38 @@ cd /mnt/cd
 ![v9](image/v9.JPG)
 ![v8](image/v8.JPG)
 ![v11](image/v11.JPG) 
+
+## Подключение ноды
+##### Добавить hostname ноды в файл hosts движка
+```
+ssh root@hosted-engine.stvr.redvirt
+```
+```
+/etc/hosts
+```
+```
+10.226.11.253 stvr-node2.stvr.redvirt
+```
+
+
+![v12](image/v12.jpg) 
+![v13](image/v13.JPG) 
+![v14](image/v14.JPG) 
+![v15](image/v15.JPG) 
+![v28](image/v28.JPG) 
+
+
+##### Как только нода проинсталлится можно продолжать
+
+
+![v29](image/v29.JPG) 
+
+## Если после процесса установке нода имеет статус
+
+![v39](image/v39.jpg)
+
+[FIX NonOperational](manuals/fix_non_opertional.md)
+
 
 
 ## Подключение репозитория Epel
@@ -619,14 +650,6 @@ yum install -y nfs-utils nfs4-acl-tools
 # Настройка DRBD
 
 ```
-semanage permissive -a drbd_t
-modprobe 8021q
-```
-
-
-## Подготовка раздела
-
-```
 systemctl disable multipathd
 ```
 ```
@@ -638,11 +661,41 @@ blacklist {
 }
 ```
 
+```
+semanage permissive -a drbd_t
+modprobe 8021q
+```
 ##### С мастер ноды копируем конфиг по sftp на подключаемую ноду.
 ```
 scp /etc/drbd.d/storage.res root@192.168.1.2:/etc/drbd.d/
 ```
 ##### Продолжаем настройки на подключаемой ноде
+
+
+##### Если раздел sdb имеет такой вид
+```
+[root@stvr-node2 cd]# lsblk
+NAME                                   MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda                                      8:0    0 447,1G  0 disk
+├─sda1                                   8:1    0   200M  0 part  /boot/efi
+├─sda2                                   8:2    0     1G  0 part  /boot
+└─sda3                                   8:3    0 445,9G  0 part
+  ├─ro-root                            254:0    0    50G  0 lvm   /
+  ├─ro-swap                            254:1    0     4G  0 lvm   [SWAP]
+  └─ro-home                            254:2    0 391,9G  0 lvm   /home
+sdb                                      8:16   0   8,2T  0 disk
+└─3600508b1001cc2082a098e84b3c833dc    254:3    0   8,2T  0 mpath
+  └─3600508b1001cc2082a098e84b3c833dc1 254:4    0   8,2T  0 part
+sr0                                     11:0    1   2,2G  0 rom   /mnt/cd
+```
+##### Удаляем их командой
+```
+dmsetup remove -f 3600508b1001cc2082a098e84b3c833dc1
+```
+```
+reboot now
+```
+
 
 ```
 drbdadm create-md storage
@@ -780,30 +833,6 @@ Daemon Status:
   pcsd: active/enabled
 ```
 ###### Должна появиться новая нода.
-
-## Подключение ноды
-##### Добавить hostname ноды в файл hosts движка
-```
-ssh root@hosted-engine.stvr.redvirt
-```
-```
-/etc/hosts
-```
-```
-10.226.11.253 stvr-node2.stvr.redvirt
-```
-
-![v12](image/v12.jpg) 
-![v13](image/v13.JPG) 
-![v14](image/v14.JPG) 
-![v15](image/v15.JPG) 
-![v28](image/v28.JPG) 
-
-
-##### Как только нода проинсталлится можно продолжать
-
-
-![v29](image/v29.JPG) 
 
 
 ------
