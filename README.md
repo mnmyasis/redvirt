@@ -612,6 +612,13 @@ ssh root@hosted-engine.stvr.redvirt
 
 ![v29](image/v29.JPG) 
 
+## Если после процесса установки нода имеет статус:
+
+![v39](image/v39.jpg)
+
+[FIX NonOperational](manuals/fix_non_operational.md)
+
+
 
 ## Подключение репозитория Epel
 ```
